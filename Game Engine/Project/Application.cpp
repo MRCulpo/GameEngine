@@ -2,6 +2,9 @@
 #include "GOEngine.h"
 #include "Object.h"
 #include <list>
+#include <iostream>
+#include "Testando.h"
+
 Application* Application::app = nullptr;
 
 Application::~Application()
@@ -11,7 +14,10 @@ Application::~Application()
 Application::Application()
 {
 	this->m_window.create(VideoMode(800, 600, 32), "Engine");
-	this->m_screen.setScreen(800,600);
+	this->m_screen.setScreen(800, 600);
+
+	list<Object> myObject;
+	m_objects = &myObject;
 }
 
 Application::Application(int width, int height, String title)
@@ -33,41 +39,44 @@ void Application::update()
 		GOEngine::pGoEngineTime->update();
 
 		m_window.clear();
-		this->updateDraw();
+		//this->UpdateStart();
+		//this->UpdateDraw();
 		m_window.display();
 	}
 }
 
-void Application::addObject(Object*  obj)
+void Application::addObject(Object* obj)
 {
-	this->m_objects.push_front(obj);
+	m_objects->push_front(*obj);
 }
 
 
-Components Application::getObjects()
+list<Object>* Application::GetObjects()
 {
-	return this->m_objects;
+	return m_objects;
 }
 
-void Application::updateDraw()
+void Application::UpdateStart()
 {
-	//Draw All Objects
-	for (int index = 0; index < GOEngine::pApp->getObjects().size(); index++)
+	for (std::list<Object>::iterator it = m_objects->begin(); it != m_objects->end(); ++it)
 	{
-		Object* _obj = get(index);
-		printf("%d", _obj->getInstance());
-		//m_window.draw(*_obj);
+		if (it->getStarted() == false)
+		{
+			it->start();
+			it->setStarted(true);
+		}
 	}
+
 }
 
-
-Object *Application::get(const list<Object*> &list, int index)
+void Application::UpdateDraw()
 {
-	auto it = list.begin();
-	for (int i = 0; i< index; i++) {
-		++it;
+	std::list<Object>::const_iterator it;
+
+	for (it = m_objects->begin(); it != m_objects->end(); ++it)
+	{
+		m_window.draw(*it);
 	}
-	return (it == list.end()) ? nullptr : *it;
 }
 
 void Application::create(int width, int height, String title)

@@ -9,7 +9,7 @@ public:
 
 	void awake();
 	void start();
-	void draw(sf::RenderTarget& target, sf::RenderStates states);
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
 

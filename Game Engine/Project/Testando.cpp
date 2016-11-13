@@ -1,5 +1,5 @@
 #include "Testando.h"
-
+#include <iostream>
 
 Testando::Testando()
 {
@@ -14,17 +14,18 @@ Testando::~Testando()
 void Testando::awake()
 {
 	Instanteate(this);
-	this->shape.setRadius(40.f);
-	this->shape.setPosition(0, 0);
-	this->shape.setFillColor(Color::Blue);
 }
 
 void Testando::start()
 {
+	shape.setRadius(50);
+	shape.setPosition(50, 50);
+	shape.setFillColor(Color::Blue);
+	std::cout << "Passei no start deste objeto"<< std::endl;
 }
 
-void Testando::draw(sf::RenderTarget & target, sf::RenderStates states)
+void Testando::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	Object::draw(target, states);
-	target.draw(this->shape, states);
+	target.draw(shape, states);
 }

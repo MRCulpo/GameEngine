@@ -3,6 +3,7 @@
 
 Object::Object()
 {
+	this->m_started = false;
 }
 
 
@@ -14,6 +15,35 @@ void Object::draw(RenderTarget & target, RenderStates states) const
 {
 	if(this->m_isActive)
 		states.transform *= getTransform();
+}
+
+void Object::awake() const
+{
+}
+
+void Object::start() const
+{
+}
+
+void Object::update() const
+{
+}
+
+void Object::onEnable() const
+{
+}
+
+void Object::onDisable() const
+{
+}
+
+void Object::onDelete() const
+{
+}
+
+void Object::setStarted(bool boolean)
+{
+	this->m_started = boolean;
 }
 
 void Object::setActive(bool boolean)
@@ -40,6 +70,11 @@ void Object::setId(int id)
 bool Object::getActive()
 {
 	return this->m_isActive;
+}
+
+bool Object::getStarted()
+{
+	return this->m_started;
 }
 
 int Object::getInstance() const

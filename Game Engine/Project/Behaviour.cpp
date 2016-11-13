@@ -4,6 +4,7 @@
 
 Behaviour::Behaviour()
 {
+	
 }
 
 
@@ -11,29 +12,6 @@ Behaviour::~Behaviour()
 {
 }
 
-void Behaviour::awake() const
-{
-}
-
-void Behaviour::start() const
-{
-}
-
-void Behaviour::update() const
-{
-}
-
-void Behaviour::onEnable() const
-{
-}
-
-void Behaviour::onDisable() const
-{
-}
-
-void Behaviour::onDelete() const
-{
-}
 
 bool Behaviour::Instanteate(Object* objects)
 {
@@ -41,11 +19,10 @@ bool Behaviour::Instanteate(Object* objects)
 	{
 		int id = GOEngine::pApp->m_sizeAllocatedObject++;
 		objects->setId(id);
+		objects->setName("Objeto " + std::to_string(id));
 		objects->setActive(true);
-		objects->setPosition(0, 0);
 		GOEngine::pApp->addObject(objects);
 
-		printf("%d     %d\n", id, GOEngine::pApp->getObjects().size());
 		return true;
 	}
 	catch (const std::exception&)
