@@ -22,7 +22,6 @@ bool Behaviour::Instanteate(Object* objects)
 		objects->setName("Objeto " + std::to_string(id));
 		objects->setActive(true);
 		GOEngine::pApp->addObject(objects);
-
 		return true;
 	}
 	catch (const std::exception&)

@@ -7,6 +7,8 @@
 using namespace sf;
 using namespace std;
 
+typedef list<Object*> Component;
+
 #pragma once
 class Application
 {
@@ -18,7 +20,6 @@ public:
 
 	void update();
 	void addObject(Object* obj);
-	list<Object>* GetObjects();
 	static void create(int width, int height, String title);
 
 public:
@@ -33,7 +34,10 @@ private:
 private:
 
 	static Application* app;
-	list<Object> *m_objects;
+
+	Component *m_objects;
+	Component component;
+
 	RenderWindow m_window;
 	Event m_event;
 	Screen m_screen;

@@ -1,5 +1,6 @@
 #include "Extension.h"
 #include "Object.h"
+#include "GOEngine.h"
 
 Object::Object()
 {

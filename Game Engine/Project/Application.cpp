@@ -15,9 +15,6 @@ Application::Application()
 {
 	this->m_window.create(VideoMode(800, 600, 32), "Engine");
 	this->m_screen.setScreen(800, 600);
-
-	list<Object> myObject;
-	m_objects = &myObject;
 }
 
 Application::Application(int width, int height, String title)
@@ -28,6 +25,8 @@ Application::Application(int width, int height, String title)
 
 void Application::update()
 {
+	
+
 	while (m_window.isOpen())
 	{
 		while (m_window.pollEvent(m_event))
@@ -39,43 +38,44 @@ void Application::update()
 		GOEngine::pGoEngineTime->update();
 
 		m_window.clear();
-		//this->UpdateStart();
-		//this->UpdateDraw();
+		this->UpdateStart();
+		this->UpdateDraw();
 		m_window.display();
+
+		system("pause");
 	}
 }
 
 void Application::addObject(Object* obj)
 {
-	m_objects->push_front(*obj);
-}
 
-
-list<Object>* Application::GetObjects()
-{
-	return m_objects;
+	m_objects = &component;
+	cout << "Endereço de memoria : " << obj << endl;
+	cout << "Nome de memoria : " << obj->getName() << endl;
+	cout << endl;
+	m_objects->push_front(obj);
 }
 
 void Application::UpdateStart()
 {
-	for (std::list<Object>::iterator it = m_objects->begin(); it != m_objects->end(); ++it)
+	for (Component::iterator it = m_objects->begin(); it != m_objects->end(); ++it)
 	{
-		if (it->getStarted() == false)
+		if(!(*it)->getStarted())
 		{
-			it->start();
-			it->setStarted(true);
+			(*it)->start();
+			(*it)->setStarted(true);
 		}
 	}
-
 }
 
 void Application::UpdateDraw()
 {
-	std::list<Object>::const_iterator it;
-
-	for (it = m_objects->begin(); it != m_objects->end(); ++it)
+	for (Component::iterator it = m_objects->begin(); it != m_objects->end(); ++it)
 	{
-		m_window.draw(*it);
+		cout << "Endereço de memoria : " << (*it) << endl;
+		cout << "Nome de memoria : " << (*it)->getName() << endl;
+		//(*it)->setName("Troquei de Nome");
+		//m_window.draw((*it));
 	}
 }
 
